@@ -21,3 +21,13 @@
                (when (window-splittable-p window)
                  (with-selected-window window
                    (split-window-below))))))))
+(defun new-frame-with-scratch ()
+  "Open a new frame with scratch buffer selected"
+  (interactive)
+  (let ((frame (make-frame))
+        (scratch-name "*scratch*"))
+    (select-frame-set-input-focus frame)
+    (unless (get-buffer scratch-name)
+      (with-current-buffer (get-buffer-create scratch-name)
+        (text-mode)))
+    (switch-to-buffer scratch-name 'norecord)))
